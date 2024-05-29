@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %} <title>Alterar Atuadores</title> {% endblock %}
+{%block content%}
+<link rel="stylesheet" href="static/CSS/cadastrar_atuador.css" />  
+<div class="container">
+    <div class="fundo">
+        <h2>Alterar Atuadores</h2>
+        <form action = "http://localhost:8080/atuador_atualizar" method = "post">
+            <p hidden><input type = "text" name = "id" value= "{{tipo}}" readonly/></p>
+            <div class="input-box">
+                <p><input type = "text" name = "tipo" value= "{{tipo}}" required/></p>
+            </div>
+            <div class="input-box">
+                <p><input type = "text" name = "modelo" value="{{modelo}}" required/></p>
+            </div>
+            <p><input type = "submit" value = "Alterar" /></p>
+        </form>
+    </div>
+</div>
+{%endblock%}

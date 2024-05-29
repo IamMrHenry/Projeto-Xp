@@ -1,0 +1,15 @@
+.Bem-vindo {
+    font-size: 48px; /* Altere o tamanho conforme necessário */
+    font-weight: bold;
+    color: #000000;
+    position: absolute; /* Define a posição absoluta */
+    top: 50%; /* Alinha o topo ao centro da tela */
+    left: 50%; /* Alinha a esquerda ao centro da tela */
+    transform: translate(-50%, -50%); /* Move o elemento para o centro */
+    text-align: center; /* Alinhar o texto ao centro */
+    font-family: Arial, sans-serif; /* Fonte do texto */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */
+    background-color: rgba(255, 255, 255, 0.8); /* Cor de fundo com transparência */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 10px; /* Borda arredondada */
+}

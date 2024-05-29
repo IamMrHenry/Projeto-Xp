@@ -1,0 +1,24 @@
+{% extends "base2.html" %}
+{% block title %} <title>Sensores</title> {% endblock %}
+{% block content %}
+<h1>Sensores</h1>
+<link rel="stylesheet" href="static/CSS/styles_user.css">
+<link rel="stylesheet" href="static/CSS/cadastrar_atuador.css">
+
+<table id="view_users" class="table table-striped table-bordered" style="width:40%">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Modelo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chave, valor in sensores.items() %}
+            <tr>
+                <td>{{chave}}</td>
+                <td>{{valor}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

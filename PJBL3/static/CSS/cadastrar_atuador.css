@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #888; 
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fundo {
+    background-color: #fff;
+    padding: 60px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 0px 0px 0px 4px rgba(255, 255, 255, 0.8); 
+    max-width: 50%; 
+    margin-top: 100px;
+}
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: -20px;
+    color: #333;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    color: #888;
+}
+
+
+p input[type="submit"] {
+    background-color: #007bff; 
+    margin-left: 25%;
+    color: white;
+    padding: 10px 20px;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+p input[type="submit"]:hover {
+    background-color: #0056b3; 
+}
+.button {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  
+  .button--shadow {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+  
+  .button:hover {
+    background-color: #45a049;
+  }
+  
+
+  #Estado\ de\ Emergência {
+    background-color: #ff4d4d; 
+    color: white;
+  }
+  
+  #Estado\ de\ Emergência:hover {
+    background-color: #ff6666; 
+  }
+  
+  
+
+  @media screen and (max-width: 600px) {
+    .fundo {
+        padding: 30px; 
+        max-width: 80%; 
+        margin-top: 50px; 
+    }
+
+    h2 {
+        margin-bottom: 20px; 
+        margin-top: -10px; 
+    }
+
+    .input-box input {
+        width: 100%;
+    }
+
+    p input[type="submit"] {
+        margin-left: 0; 
+        width: 100%; 
+    }
+}
+
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    .fundo {
+        max-width: 70%; 
+    }
+}

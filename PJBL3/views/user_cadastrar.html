@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %} <title>Adicionar Usuário</title> {% endblock %}
+{%block content%}
+<link rel="stylesheet" href="static/CSS/cadastrar_atuador.css" /> 
+<body>
+    <div class="container">
+        <div class="fundo">
+            <h2>Cadastrar Usuários</h2>
+            <form action = "http://localhost:8080/user_adicionar" method = "post">
+                <div class="input-box">
+                    <p><input type = "text" name = "user" placeholder="Nome" required/></p>
+                </div>
+                <div class="input-box">
+                    <p><input type = "text" name = "senha" placeholder="Senha" required/></p>
+                </div>
+                <p><input type = "submit" value = "Cadastrar" /></p>
+            </form>
+        </div>
+    </div>
+</body>
+{%endblock%}
