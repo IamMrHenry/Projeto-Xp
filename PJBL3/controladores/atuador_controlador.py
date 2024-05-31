@@ -1,20 +1,13 @@
 from flask import Blueprint, request, render_template
-
-atuadores = {
-    "Led": "Desligado",
-    "Buzzer": "Desligado",
-    "Servo Motor": "Fechado",
-}
+from modelos.iot.atuadores import Atuador
 
 atuador = Blueprint("atuador",__name__, template_folder="views")
 
-"""@atuador.route('/atuador_listar')
+@atuador.route('/atuador_listar')
 def atuador_listar():
+    atuadores = Atuador.get_atuador()
     return render_template("atuador_listar.html", atuadores=atuadores)
 
-@atuador.route('/atuador_listar_user')
-def atuador_listar_user():
-    return render_template("atuador_listar_user.html", atuadores=atuadores)
 
 @atuador.route('/atuador_cadastrar')
 def atuador_cadastrar():
@@ -22,37 +15,32 @@ def atuador_cadastrar():
 
 @atuador.route('/atuador_adicionar', methods=['GET','POST'])
 def atuador_adicionar():
-    global atuadores
-    if request.method == 'POST':
-        tipo = request.form['tipo']
-        modelo = request.form['modelo']
-    else:
-        tipo = request.args.get('tipo', None)
-        modelo = request.args.get('modelo', None)
-    atuadores[tipo] = modelo
+    nome = request.form.get("nome")
+    marca = request.form.get("marca")
+    modelo = request.form.get("modelo")
+    status = True if request.form.get("status") == "on" else False
+    Atuador.save_atuador(nome, marca, modelo, status)
+    atuadores = Atuador.get_atuador()
     return render_template("atuador_listar.html", atuadores=atuadores)
 
 @atuador.route('/atuador_deletar')
 def atuador_deletar():
-    global atuadores
-    atuador = request.args.get('atuador', None)
-    atuadores.pop(atuador)
+    id = request.args.get('atuador', None)
+    atuadores = Atuador.delete_atuador(id)
     return render_template("atuador_listar.html", atuadores=atuadores)
 
 @atuador.route('/atuador_alterar')
 def atuador_alterar():
-    global atuadores
-    atuador = request.args.get('atuador', None)
-    return render_template("atuador_alterar.html", tipo=atuador, modelo=atuadores[atuador])
+    id = request.args.get('atuador', None)
+    atuadores = Atuador.get_single_atuador(id)
+    return render_template("atuador_alterar.html", atuadores=atuadores)
 
 @atuador.route('/atuador_atualizar', methods=['GET','POST'])
 def atuador_atualizar():
     id = request.form.get("id")
-    tipo = request.form.get("tipo")
+    nome = request.form.get("nome")
+    marca = request.form.get("marca")
     modelo = request.form.get("modelo")
-    if tipo in atuadores:
-        atuadores[tipo] = modelo
-    else:
-        atuadores.pop(id)
-        atuadores[tipo] = modelo
-    return render_template("atuador_listar.html", atuadores = atuadores)"""
+    status = True if request.form.get("status") == "on" else False
+    atuadores = Atuador.update_atuador(id, nome, marca, modelo, status )
+    return render_template("atuador_listar.html", atuadores = atuadores)

@@ -8,19 +8,31 @@
 <table id="view_users" class="table table-striped table-bordered" style="width:80%">
         <thead>
             <tr>
-                <th>Tipo</th>
+                <th>Nome</th>
+                <th>Marca</th>
                 <th>Modelo</th>
+                <th>Unidade</th>
+                <th>Status</th>
+                <th>Data de Modificação</th>
                 <th>Editar</th>
                 <th>Deletar</th>
             </tr>
         </thead>
         <tbody>
-            {% for chave, valor in sensores.items() %}
+            {% for sensor in sensores %}
             <tr>
-                <td>{{chave}}</td>
-                <td>{{valor}}</td>
-                <td><a href="http://localhost:8080/sensor_alterar?sensor={{chave}}" class="editar">Editar</a></td>
-                <td><a href="http://localhost:8080/sensor_deletar?sensor={{chave}}" class="remove">Remover</a></td>
+                <td>{{sensor.nome}}</td>
+                <td>{{sensor.marca}}</td>
+                <td>{{sensor.modelo}}</td>
+                <td>{{sensor.unidade}}</td>
+                {% if sensor.status == true %}
+                  <td>Ativo</td>
+                {% else %}
+                  <td>Desativado</td>
+                {% endif %}
+                <td>{{sensor.data_criacao}}</td>
+                <td><a href="http://localhost:8080/sensor_alterar?sensor={{sensor.id}}" class="editar">Editar</a></td>
+                <td><a href="http://localhost:8080/sensor_deletar?sensor={{sensor.id}}" class="remove">Remover</a></td>
             </tr>
             {% endfor %}
         </tbody>

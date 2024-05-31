@@ -3,13 +3,10 @@ from modelos.iot.sensores import Sensor
 
 sensor = Blueprint("sensor",__name__, template_folder="views")
 
-"""@sensor.route('/sensor_listar')
+@sensor.route('/sensor_listar')
 def sensor_listar():
+    sensores = Sensor.get_sensors()
     return render_template("sensor_listar.html", sensores=sensores)
-
-@sensor.route('/sensor_listar_user')
-def sensor_listar_user():
-    return render_template("sensor_listar_user.html", sensores=sensores)
 
 @sensor.route('/sensor_cadastrar')
 def sensor_cadastrar():
@@ -17,37 +14,34 @@ def sensor_cadastrar():
 
 @sensor.route('/sensor_adicionar', methods=['GET','POST'])
 def sensor_adicionar():
-    global sensores
-    if request.method == 'POST':
-        tipo = request.form['tipo']
-        modelo = request.form['modelo']
-    else:
-        tipo = request.args.get('tipo', None)
-        modelo = request.args.get('modelo', None)
-    sensores[tipo] = modelo
+    nome = request.form.get("nome")
+    marca = request.form.get("marca")
+    modelo = request.form.get("modelo")
+    unidade = request.form.get("unidade")
+    status = True if request.form.get("status") == "on" else False
+    Sensor.save_sensor(nome, marca, modelo, unidade, status)
+    sensores = Sensor.get_sensors()
     return render_template("sensor_listar.html", sensores=sensores)
 
 @sensor.route('/sensor_deletar')
 def sensor_deletar():
-    global sensores
-    sensor = request.args.get('sensor', None)
-    sensores.pop(sensor)
+    id = request.args.get('sensor', None)
+    sensores = Sensor.delete_sensor(id)
     return render_template("sensor_listar.html", sensores=sensores)
 
 @sensor.route('/sensor_alterar')
 def sensor_alterar():
-    global sensores
-    sensor = request.args.get('sensor', None)
-    return render_template("sensor_alterar.html", tipo=sensor, modelo=sensores[sensor])
+    id = request.args.get('sensor', None)
+    sensor = Sensor.get_single_sensor(id)
+    return render_template("sensor_alterar.html", sensor=sensor)
 
 @sensor.route('/sensor_atualizar', methods=['GET','POST'])
 def sensor_atualizar():
     id = request.form.get("id")
-    tipo = request.form.get("tipo")
+    nome = request.form.get("nome")
+    marca = request.form.get("marca")
     modelo = request.form.get("modelo")
-    if tipo in sensores:
-        sensores[tipo] = modelo
-    else:
-        sensores.pop(id)
-        sensores[tipo] = modelo
-    return render_template("sensor_listar.html", sensores = sensores)"""
+    unidade = request.form.get("unidade")
+    status = True if request.form.get("status") == "on" else False
+    sensores = Sensor.update_sensor(id, nome, marca, modelo, unidade, status )
+    return render_template("sensor_listar.html", sensores = sensores)

@@ -8,10 +8,19 @@
             <h2>Cadastrar Sensores</h2>
             <form action = "http://localhost:8080/sensor_adicionar" method = "post">
                 <div class="input-box">
-                    <p><input type = "text" name = "tipo" placeholder="tipo" required/></p>
+                    <p><input type = "text" name = "nome" placeholder="nome" required/></p>
                 </div>
                 <div class="input-box">
-                    <p><input type = "text" name = "modelo" placeholder="modelo" required/></p>
+                    <p><input type = "text" name = "marca" placeholder="marca"/></p>
+                </div>
+                <div class="input-box">
+                    <p><input type = "text" name = "modelo" placeholder="modelo"/></p>
+                </div>
+                <div class="input-box">
+                    <p><input type = "text" name = "unidade" placeholder="unidade"/></p>
+                </div>
+                <div class="check-box">
+                    <p><input type = "checkbox" name = "status"required/></p>
                 </div>
                 <p><input type = "submit" value = "Cadastrar" /></p>
             </form>

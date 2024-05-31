@@ -1,22 +1,26 @@
 from flask import Blueprint, request, render_template
 
+users = {
+    'Gabriel': ["123", "Administrador"],
+    'Vitor': ["123", "Usuário"] ,
+    'Cadu': ["123", "Usuário"],
+    'Phillip': ["123", "Usuário"]
+}
+
+roles= ["Usuário","Administrador"]
 
 login = Blueprint("login",__name__, template_folder="views")
 
-"""@login.route('/user_validar', methods=['POST'])
+@login.route('/user_validar', methods=['POST'])
 def user_validar():
     if request.method == 'POST':
         user = request.form['user']
         senha = request.form['senha']
         if user in users and users[user][0] == senha:
-            if  users[user][1] == "Administrador":
-                return render_template('adm_home.html')
-            else:
-                return render_template('user_home.html')
+            return render_template('home.html')
         else:
             status = 1
             return render_template('login.html', status=status)
-            
     else:
         status = 0
         return render_template('login.html', status=status)
@@ -70,4 +74,4 @@ def user_atualizar():
         adm = users[id][1]
         users.pop(id)
         users[user] = [senha, adm]
-    return render_template("user_listar.html", users = users)"""
+    return render_template("user_listar.html", users = users)

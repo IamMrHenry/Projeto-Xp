@@ -1,54 +1,51 @@
 from modelos.db import db
 from modelos.iot.dispositivo import Dispositivo
+from datetime import datetime
 
 class Atuador(db.Model):
     __tablename__ = 'atuadores'
     id= db.Column('id', db.Integer, primary_key=True)
-    dispositivos_id = db.Column( db.Integer, db.ForeignKey(Dispositivo.id))
-    unidade = db.Column(db.String(50))
-    topico = db.Column(db.String(50))
+    dispositivo_id = db.Column( db.Integer, db.ForeignKey(Dispositivo.id))
 
-"""    def save_actuator(name, brand, model, topic, unit, is_active):
-        device = Device(name = name, brand = brand,
-        model = model, is_active = is_active)
-        actuator = Actuator(devices_id = device.id, unit= unit, topic = topic)
-        device.actuator.append(actuator)
-        db.session.add(device)
+    def save_atuador(nome, marca, modelo, status):
+        dispositivo = Dispositivo(nome = nome, marca = marca,
+        modelo = modelo, status = status, data_criacao = datetime.now())
+        atuador = Atuador(dispositivo_id = dispositivo.id)
+        dispositivo.atuadores.append(atuador)
+        db.session.add(dispositivo)
         db.session.commit()
         
-    def get_actuator():
-        actuator = Actuator.query.join(Device, Device.id == Actuator.devices_id)\
-                .add_columns(Device.id, Device.name,
-                Device.brand, Device.model,
-                Device.is_active, Actuator.topic,
-                Actuator.unit).all()
-        return actuator
+    def get_atuador():
+        atuador = Atuador.query.join(Dispositivo, Dispositivo.id == Atuador.dispositivo_id)\
+                .add_columns(Dispositivo.id, Dispositivo.nome,
+                Dispositivo.marca, Dispositivo.modelo,
+                Dispositivo.status, Dispositivo.data_criacao).all()
+        return atuador
     
-    def get_single_actuator(id):
-        actuator = Actuator.query.filter(Actuator.devices_id == id).first()
-        if actuator is not None:
-            actuator = Actuator.query.filter(Actuator.devices_id == id)\
-                .join(Device).add_columns(Device.id, Device.name, Device.brand,
-                Device.model, Device.is_active, Actuator.topic, Actuator.unit).first()
-            return [actuator]
+    def get_single_atuador(id):
+        atuador = Atuador.query.filter(Atuador.dispositivo_id == id).first()
+        if atuador is not None:
+            atuador = Atuador.query.filter(Atuador.dispositivo_id == id)\
+                .join(Dispositivo).add_columns(Dispositivo.id, Dispositivo.nome, Dispositivo.marca,
+                Dispositivo.modelo, Dispositivo.status).first()
+            return [atuador]
         
-    def update_actuator(id,name, brand, model, topic, unit, is_active):
-        device = Device.query.filter(Device.id == id).first()
-        actuator = Actuator.query.filter(Actuator.devices_id == id).first()
-        if device is not None:
-            device.name = name
-            device.brand = brand
-            device.model = model
-            actuator.topic = topic
-            actuator.unit = unit
-            device.is_active = is_active
+    def update_atuador(id,nome, marca, modelo, status):
+        dispositivo = Dispositivo.query.filter(Dispositivo.id == id).first()
+        atuador = Atuador.query.filter(Atuador.dispositivo_id == id).first()
+        if dispositivo is not None:
+            dispositivo.nome = nome
+            dispositivo.marca = marca
+            dispositivo.modelo = modelo
+            dispositivo.status = status
+            dispositivo.data_criacao = datetime.now()
             db.session.commit()
-            return Actuator.get_actuator()
+            return Atuador.get_atuador()
 
-    def delete_actuator(id):
-        device = Device.query.filter(Device.id == id).first()
-        actuator = Actuator.query.filter(Actuator.devices_id == id).first()
-        db.session.delete(actuator)
-        db.session.delete(device)
+    def delete_atuador(id):
+        dispositivo = Dispositivo.query.filter(Dispositivo.id == id).first()
+        atuador = Atuador.query.filter(Atuador.dispositivo_id == id).first()
+        db.session.delete(atuador)
+        db.session.delete(dispositivo)
         db.session.commit()
-        return Actuator.get_actuator()"""
+        return Atuador.get_atuador()
