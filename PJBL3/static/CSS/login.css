@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(to bottom, #b1afaf, #4b4949); 
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.fundo {
+    background-color: #fff;
+    padding: 60px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 0px 0px 0px 4px rgba(255, 255, 255, 0.8); 
+    max-width: 50%; 
+    
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: -20px;
+    color: #333;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    color: #888;
+}
+
+
+p input[type="submit"] {
+    background-color: #007bff; 
+    margin-left: 25%;
+    color: white;
+    padding: 10px 20px;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+p input[type="submit"]:hover {
+    background-color: #0056b3; 
+  }
+  
+.mensagem {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.error-message {
+    background-color: #ffffff; 
+    padding: 10px; 
+    border-radius: 8px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+    font-weight: bold; /* Texto em negrito */
+}
+
+

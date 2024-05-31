@@ -1,0 +1,47 @@
+#view_users a {
+    margin-right: 5px;
+    text-decoration: none; 
+    color: inherit; 
+}
+
+#view_users {
+    margin-top: 20px;
+    width: 80%;
+    margin: 20px auto; 
+    background-color: white; 
+    border-collapse: collapse; 
+    border: 2px solid #d7d1d1; 
+}
+
+#view_users tr {
+    background-color: white; 
+}
+
+/* Estilo das células */
+#view_users th,
+#view_users td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd; 
+}
+
+#view_users th {
+    background-color: #d7d1d1;
+}
+
+#view_users tr:hover {
+    background-color: #e3e2e2; 
+}
+
+#view_users a.remove:hover {
+    color: red; 
+}
+
+#view_users a.editar:hover {
+    color: rgb(0, 102, 255); 
+}
+
+h1 {
+    margin: 30px auto; 
+    width: fit-content; 
+}
