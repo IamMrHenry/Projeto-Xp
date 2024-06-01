@@ -13,3 +13,22 @@
     padding: 20px; /* Espaçamento interno */
     border-radius: 10px; /* Borda arredondada */
 }
+.card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 40px auto 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.card p {
+    color: #666;
+    line-height: 1.6;
+}

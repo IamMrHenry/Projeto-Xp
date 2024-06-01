@@ -6,22 +6,31 @@ from datetime import datetime
 class Comando(db.Model):
     __tablename__ = 'write'
     id= db.Column('id', db.Integer, nullable = False, primary_key=True)
-    comando = db.Column(db.DateTime(), nullable = False)
+    horario = db.Column(db.DateTime(), nullable = False)
     atuador_id= db.Column(db.Integer, db.ForeignKey(Atuador.id), nullable = False)
     valor = db.Column( db.String(50), nullable = True)
 
 
     def save_write(nome, valor):
-        atuador = Atuador.query.filter(Atuador.nome == nome).first()
-        dispositivo = Dispositivo.query.filter(Dispositivo.id == atuador.dispositivo_id).first()
-        if (atuador is not None) and (dispositivo.is_active==True):
-            comando = Comando( write_datetime = datetime.now(), atuador_id = atuador.id, value = valor )
-            db.session.add(comando)
-            db.session.commit()
+        dispositivos = Dispositivo.query.filter(Dispositivo.nome.like(f'%{nome}%')).all()
+        for dispositivo in dispositivos:
+            atuadores = Atuador.query.filter(Atuador.dispositivo_id == dispositivo.id).all()
+            for atuador in atuadores:
+                if dispositivo.status:
+                    print(f"Adicionando comando para atuador {atuador.id}")
+                    comando = Comando(horario=datetime.now(), atuador_id=atuador.id, valor=valor)
+                    db.session.add(comando)
 
-    def get_write(dispositivo_id, start, end):
-        atuador = Atuador.query.filter(Atuador.dispositivo_id == dispositivo_id).first()
+        try:
+            db.session.commit()
+            print("Comandos adicionados com sucesso!")
+        except Exception as e:
+            print(f"Erro ao adicionar comandos ao banco de dados: {e}")
+
+
+    def get_write(id, start, end):
+        atuador = Atuador.query.filter(Atuador.id == id).first()
         write = Comando.query.filter(Comando.atuador_id == atuador.id,
-                                Comando.comando > start,
-                                Comando.comando <end).all()
+                                Comando.horario > start,
+                                Comando.horario <end).all()
         return write

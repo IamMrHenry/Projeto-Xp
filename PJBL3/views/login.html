@@ -1,17 +1,19 @@
 {% extends "base_login.html" %}
-{% block header %} 
-<title>Login</title>
+{% block content %}
 <link rel="stylesheet" href="static/CSS/login.css" /> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.0.7/css/boxicons.min.css">
-{% endblock %}
-{% block content %}
 <div class="container">
     <div class="fundo">
         <div class="mensagem">
-            {% if status == 1 %}
-            <p class="error-message">Usuário ou senha incorretos.</p>
-            {% endif %}
+            {% with messages = get_flashed_messages()%}
+                {% if messages %}
+                    <p></p>
+                    <p class="error-message">{{messages[0]}}</p>
+                    <p></p>
+                {% endif%}
+            {%endwith%}
         </div>
+            
         <h1>Login</h1>
         <form action="http://localhost:8080/user_validar" method="post">
             <style scoped>.whiteText {color:white;}

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %} <title>Alterar Sensores</title> {% endblock %}
 {%block content%}
 <link rel="stylesheet" href="static/CSS/cadastrar_atuador.css" /> 
 <body>
@@ -8,8 +7,7 @@
             <h2>Alterar Sensores</h2>
             <form action = "http://localhost:8080/sensor_atualizar" method = "post">
                 {%for sensor in sensor%}
-                    <p>id:</p>
-                    <p class="input-box"><input type = "text" name = "id" value= "{{sensor.id}}" readonly/></p>
+                    <p class="input-box"><input type = "text" name = "id" value= "{{sensor.id}}" readonly hidden/></p>
                     <p>Nome:</p>
                     <p class="input-box"><input type = "text" name = "nome" value= "{{sensor.nome}}" required/></p>
                     <p>Marca:</p>
@@ -18,9 +16,6 @@
                     <p class="input-box"><input type = "text" name = "modelo" value='{{sensor.modelo}}'/></p>
                     <p>Unidade de Medida:</p>
                     <p class="input-box"><input type = "text" name = "unidade" value='{{sensor.unidade}}'/></p>
-                    <p>Tópico MQTT:</p>
-                    <p class="input-box"><input type = "text" name = "topico" value='{{sensor.topico}}' required/></p>
-                    <div>
                         {% if sensor.status == true %}
                             <input type="checkbox" id="status" name="status" checked />
                         {% else%}

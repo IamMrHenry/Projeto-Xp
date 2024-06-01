@@ -3,31 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block header %}
-    {% endblock %}
     <link rel="stylesheet" href="static/CSS/bases.css" />
+    <link rel="stylesheet" href="static/CSS/Nav.css" />
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/user_listar">Listar Usuários</a></li>
-            <li><a href="/user_cadastrar">Cadastrar Usuários</a></li>
-            <li><a href="/sensor_listar">Listar Sensores</a></li>
-            <li><a href="/sensor_cadastrar">Cadastrar Sensores</a></li>
-            <li><a href="/atuador_listar">Listar Atuadores</a></li>
-            <li><a href="/atuador_cadastrar">Cadastrar Atuadores</a></li>
-            <li><a href="/tempo_real">Tempo Real</a></li>
-            <li><a href="/comando_remoto">Comando Remoto</a></li>
-            <li><a href="/dados_historicos">Dados Históricos</a></li>
-			<li><a href="/comandos_historicos">Comandos Históricos</a></li>
-            <li><a href="/">Sair</a></li>
-        </ul>
-    </nav>
-    {%block content%}
-    {%endblock%}
+    <header id="header">
+        <nav id="nav">
+            <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false"><a>Menu</a>
+                <span id="hamburger"></span>
+            </button>
+            <ul id="menu" role="menu">
+                <li><a href="/home">Home</a></li>
+                {% if role==1 %}
+                <li><a href="/user_listar">Usuários</a></li>
+                {% endif %}
+                {% if role!=3 %}
+                <li><a href="/sensor_listar">Sensores</a></li>
+                {% endif %}
+                {% if role!=2 %}
+                <li><a href="/atuador_listar">Atuadores</a></li>
+                {% endif %}
+                {% if role!=3 %}
+                <li><a href="/tempo_real">Dados</a></li>
+                {% endif %}
+                {% if role!=2 %}
+                <li><a href="/comando_remoto">Comando Remoto</a></li>
+                {% endif %}
+                <li style="float: right;"><a href="/logoff">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+    <script src="static/Js/menu.js"></script>
+    {% block content %}
+    {% endblock %}
 </body>
-<footer>
-
-</footer>
 </html>

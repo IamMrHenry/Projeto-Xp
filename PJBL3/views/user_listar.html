@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %}<title>Usuários</title>{% endblock %}
 {% block content %}
 <h1>Usuários</h1>
 <link rel="stylesheet" href="static/CSS/styles.css">
@@ -13,24 +12,29 @@
     <thead>
         <tr>
             <th>Nome</th>
-            <th>Senha</th>
+            <th>Email</th>
             <th>Função</th>
             <th>Editar</th>
             <th>Deletar</th>
         </tr>
     </thead>
     <tbody>
-        {% for chave, valor in users.items() %}
+        {% for usuario in usuarios %}
         <tr>
-            <td>{{ chave }}</td>
-            <td>{{ valor[0] }}</td> 
-            <td>{{ valor[1] }}</td> 
-            <td><a href="http://localhost:8080/user_alterar?user={{ chave }}" class="editar">Editar</a></td>
-            <td><a href="http://localhost:8080/user_deletar?user={{ chave }}" class="remove">Remover</a></td>
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.email }}</td> 
+            <td>{{ usuario.nome }}</td> 
+            <td><a href="http://localhost:8080/user_alterar?user={{ usuario.id }}" class="editar">Editar</a></td>
+            <td><a href="http://localhost:8080/user_deletar?user={{ usuario.id }}" class="remove">Remover</a></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% if role==1 %}
+<div style="text-align: center">
+    <a href="/user_cadastrar"><button class="button button--shadow">Adicionar Usuário</button></a>
+</div>
+{% endif %}
 {% endblock %}
 
 

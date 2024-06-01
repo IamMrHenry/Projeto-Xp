@@ -14,6 +14,8 @@ class Papel(db.Model):
 
     def get_single_role(nome):
         papel = Papel.query.filter(Papel.nome == nome).first()
+        if papel is None:
+            return None
         return papel
     def get_role():
         papel = Papel.query.all()

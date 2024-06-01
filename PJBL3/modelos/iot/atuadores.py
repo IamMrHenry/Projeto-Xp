@@ -17,22 +17,22 @@ class Atuador(db.Model):
         
     def get_atuador():
         atuador = Atuador.query.join(Dispositivo, Dispositivo.id == Atuador.dispositivo_id)\
-                .add_columns(Dispositivo.id, Dispositivo.nome,
+                .add_columns(Atuador.id, Atuador.dispositivo_id,Dispositivo.nome,
                 Dispositivo.marca, Dispositivo.modelo,
                 Dispositivo.status, Dispositivo.data_criacao).all()
         return atuador
     
     def get_single_atuador(id):
-        atuador = Atuador.query.filter(Atuador.dispositivo_id == id).first()
+        atuador = Atuador.query.filter(Atuador.id == id).first()
         if atuador is not None:
-            atuador = Atuador.query.filter(Atuador.dispositivo_id == id)\
-                .join(Dispositivo).add_columns(Dispositivo.id, Dispositivo.nome, Dispositivo.marca,
+            atuador = Atuador.query.join(Dispositivo, Dispositivo.id == atuador.dispositivo_id)\
+                .add_columns(Atuador.id, Atuador.dispositivo_id, Dispositivo.nome, Dispositivo.marca,
                 Dispositivo.modelo, Dispositivo.status).first()
             return [atuador]
         
     def update_atuador(id,nome, marca, modelo, status):
-        dispositivo = Dispositivo.query.filter(Dispositivo.id == id).first()
-        atuador = Atuador.query.filter(Atuador.dispositivo_id == id).first()
+        atuador = Atuador.query.filter(Atuador.id == id).first()
+        dispositivo = Dispositivo.query.filter(Dispositivo.id == atuador.dispositivo_id).first()
         if dispositivo is not None:
             dispositivo.nome = nome
             dispositivo.marca = marca
@@ -43,8 +43,8 @@ class Atuador(db.Model):
             return Atuador.get_atuador()
 
     def delete_atuador(id):
-        dispositivo = Dispositivo.query.filter(Dispositivo.id == id).first()
-        atuador = Atuador.query.filter(Atuador.dispositivo_id == id).first()
+        atuador = Atuador.query.filter(Atuador.id == id).first()
+        dispositivo = Dispositivo.query.filter(Dispositivo.id == atuador.dispositivo_id).first()
         db.session.delete(atuador)
         db.session.delete(dispositivo)
         db.session.commit()

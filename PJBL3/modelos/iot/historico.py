@@ -24,7 +24,7 @@ class Dados(db.Model):
             db.session.commit()
     
     def get_read(id, start, end):
-        sensor = Sensor.query.filter(Sensor.dispositivo_id == id).first()
+        sensor = Sensor.query.filter(Sensor.id == id).first()
         read = Dados.query.filter(Dados.sensor_id == sensor.id,
                                 Dados.horario > start,
                                 Dados.horario<end).all()

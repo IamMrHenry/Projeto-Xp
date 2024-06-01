@@ -5,8 +5,16 @@ body {
 }
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
+}
+
+.table-container {
+    width: 80%;
+    margin: 20px 0; /* Adiciona margem vertical para separação */
+    text-align: center;
 }
 
 .fundo {
@@ -15,7 +23,7 @@ body {
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 0px 0px 0px 4px rgba(255, 255, 255, 0.8); 
     max-width: 50%; 
-    margin-top: 100px;
+    margin: 20px 0;
 }
 
 
@@ -48,6 +56,15 @@ h2 {
     color: #888;
 }
 
+select {
+    background-color: transparent;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 p input[type="submit"] {
     background-color: #007bff; 

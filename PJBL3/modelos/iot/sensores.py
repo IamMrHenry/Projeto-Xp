@@ -20,23 +20,23 @@ class Sensor(db.Model):
     
     def get_sensors():
         sensores = Sensor.query.join(Dispositivo, Dispositivo.id == Sensor.dispositivo_id)\
-                .add_columns(Dispositivo.id, Dispositivo.nome,
+                .add_columns(Sensor.id, Sensor.dispositivo_id, Dispositivo.nome,
                 Dispositivo.marca, Dispositivo.modelo,
                 Dispositivo.status, Dispositivo.data_criacao,
                 Sensor.unidade).all()
         return sensores
     
     def get_single_sensor(id):
-        sensor = Sensor.query.filter(Sensor.dispositivo_id == id).first()
+        sensor = Sensor.query.filter(Sensor.id == id).first()
         if sensor is not None:
-            sensor = Sensor.query.filter(Sensor.dispositivo_id == id)\
-                .join(Dispositivo).add_columns(Dispositivo.id, Dispositivo.nome, Dispositivo.marca,
+            sensor = Sensor.query.join(Dispositivo, Dispositivo.id == sensor.dispositivo_id)\
+                .add_columns(Sensor.id, Sensor.dispositivo_id, Dispositivo.nome, Dispositivo.marca,
                 Dispositivo.modelo, Dispositivo.status, Sensor.unidade, Dispositivo.data_criacao).first()
             return [sensor]
         
     def update_sensor(id,nome, marca, modelo, unidade, status):
-        dispositivo = Dispositivo.query.filter(Dispositivo.id == id).first()
-        sensor = Sensor.query.filter(Sensor.dispositivo_id == id).first()
+        sensor = Sensor.query.filter(Sensor.id == id).first()
+        dispositivo = Dispositivo.query.filter(Dispositivo.id == sensor.dispositivo_id).first()
         if dispositivo is not None:
             dispositivo.nome = nome
             dispositivo.marca = marca
@@ -48,9 +48,9 @@ class Sensor(db.Model):
             return Sensor.get_sensors()
     
     def delete_sensor(id):
-        device = Dispositivo.query.filter(Dispositivo.id == id).first()
-        sensor = Sensor.query.filter(Sensor.dispositivo_id == id).first()
-        db.session.delete(sensor)
+        sensor = Sensor.query.filter(Sensor.id == id).first()
+        device = Dispositivo.query.filter(Dispositivo.id == sensor.dispositivo_id).first()
         db.session.delete(device)
+        db.session.delete(sensor)
         db.session.commit()
         return Sensor.get_sensors()

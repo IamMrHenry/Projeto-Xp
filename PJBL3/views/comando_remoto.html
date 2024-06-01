@@ -1,10 +1,8 @@
 {% extends "base.html" %}
-{% block title %} 
-<title>Comando Remoto</title> 
-{% endblock %}
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="static/CSS/cadastrar_atuador.css" /> 
+    <link rel="stylesheet" href="static/CSS/cadastrar_atuador.css" />
+    <link rel="stylesheet" href="static/CSS/styles.css" /> 
 <script>
     function handleClick(id) {
         var topic = "Xp.Barragem/receber";
@@ -17,11 +15,11 @@
         if (id === "Servo Motor") {
             servoValue = servoValue === 0 ? 1 : 0; // Inverte o valor
             $("input[name='valor Servo']").val(servoValue); // Atualiza o valor do input
-            data = { "Servo Motor": servoValue };
+            Atuador = "Servo Motor"
         } else if (id === "Estado de Emergência") {
             emergenciaValue = emergenciaValue === 0 ? 1 : 0; // Inverte o valor
             $("input[name='valor Emergencia']").val(emergenciaValue); // Atualiza o valor do input
-            data = { "Estado de Emergência": emergenciaValue };
+            Atuador = "Estado de Emergência"
         }
 
         // Envia os dados através da solicitação AJAX
@@ -32,7 +30,8 @@
             method: 'POST',
             dataType: 'json',
             data: JSON.stringify({
-                message: JSON.stringify(data),
+                atuador: Atuador,
+                valor:servoValue,
                 topic: topic
             }),
             success: function(data) {
@@ -42,18 +41,60 @@
     }
 </script>
     
-<body>
-    <div class="container">
-        <div class="fundo">   
-            <h2>Comando Remoto</h2>
-            <div class="button__container">
-                <button onclick="handleClick('Servo Motor')" id="Servo Motor" class="button button--shadow">Servo Motor</button>
-                <p hidden><input type="text" name="valor Servo" value="0" readonly/></p>
-                <button onclick="handleClick('Estado de Emergência')" id="Estado de Emergência" class="button button--shadow">Estado de Emergência</button>
-                <p hidden><input type="text" name="valor Emergencia" value="0" readonly/></p>
-            </div>
+<div class="container">
+    <div class="fundo">   
+        <h2>Comando Remoto</h2>
+        <div class="button__container">
+            <button onclick="handleClick('Servo Motor')" id="Servo Motor" class="button button--shadow">Servo Motor</button>
+            <p hidden><input type="text" name="valor Servo" value="0" readonly/></p>
+            <button onclick="handleClick('Estado de Emergência')" id="Estado de Emergência" class="button button--shadow">Estado de Emergência</button>
+            <p hidden><input type="text" name="valor Emergencia" value="0" readonly/></p>
         </div>
     </div>
-</body>
+</div>
+<div class="container">
+    <div class="fundo">
+        <form action="http://localhost:8080/get_comandos" method="post">
+            <select name="id">
+                <option>Nenhum atuador selecionado</option>
+                {% for actuator in atuadores %}
+                <option type = "text" name = "id" value= "{{actuator.id}}">{{ actuator.nome }}</option>
+                {% endfor %}
+            </select>
+            <p></p>
+            <p></p>
+            <p></p>
+            Início:
+            <p class="input-box"><input type="datetime-local"  name="start" requires/></p>
+            Fim:
+            <p class="input-box"><input type="datetime-local"  name="end" requires/></p>
+            <p><input type = "submit" value = "Carregar" /></p>
+        </form>
+    </div>
+</div>   
+<br>
+{% if write %}
+    <div>
+        <table id="view_users" class="table table-striped table-bordered" style="width:80%">
+            <p>Atuações:</p>
+            <thead>
+                <tr>
+                    <th>Atuador</th>
+                    <th>Valor</th>
+                    <th>Horário</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for write in write %}
+                    <tr>
+                        <td>{{ write.atuador_id }}</td>
+                        <td>{{ write.valor }}</td>
+                        <td>{{ write.horario }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
 
 {% endblock %}

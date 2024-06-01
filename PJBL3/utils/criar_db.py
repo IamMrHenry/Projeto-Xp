@@ -8,6 +8,7 @@ def criar_db(app:Flask):
         db.drop_all()
         db.create_all()
         Papel.save_role( "Administrador", "Usuário full" )
-        Papel.save_role( "Usuáios Comum", "Usuário com limitações")
+        Papel.save_role( "Estático", "Usuário com visualização")
+        Papel.save_role( "Operador", "Usuário com limitações")
         Usuario.save_user("Administrador","Gabriel", "gabriel@email.com","123")
 

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %} <title>Alterar Usuários</title> {% endblock %}
 {%block content%}
 <link rel="stylesheet" href="static/CSS/cadastrar_atuador.css" /> 
 <body>
@@ -7,14 +6,20 @@
         <div class="fundo">
             <h2>Alterar Usuários</h2>
             <form action = "http://localhost:8080/user_atualizar" method = "post">
-                <p hidden><input type = "text" name = "id" value= "{{user}}" readonly/></p>
-                <div class="input-box">
-                    <p><input type = "text" name = "user" value= "{{user}}" required/></p>
-                </div>
-                <div class="input-box">
-                    <p><input type = "text" name = "senha" placeholder="*********" required/></p>
-                </div>
-                <p><input type = "submit" value = "Alterar" /></p>
+                    <p class="input-box"><input type = "text" name = "id" value= "{{usuarios.id}}" readonly hidden/></p>
+                    <p>Nome:</p>
+                    <p class="input-box"><input type = "text" name = "nome" value= "{{usuarios.username}}" required/></p>
+                    <p>Email:</p>
+                    <p class="input-box"><input type = "text" name = "email" value='{{usuarios.email}}'/></p>
+                    <p>Senha:</p>
+                    <p class="input-box"><input type = "text" name = "senha" value='{{usuarios.senha}}'/></p>
+                    <p>Papel:</p>
+                    <select name="papel">
+                        {% for papel in papel %}
+                        <option type = "text" name = "id" value= "{{papel.id}}">{{ papel.nome }}</option>
+                        {% endfor %}
+                    </select>
+                    <p><input type = "submit" value = "Alterar" /></p>
             </form>
         </div>
     </div>

@@ -1,77 +1,41 @@
-from flask import Blueprint, request, render_template
+import flask_login
+from flask_login import LoginManager, logout_user
+from modelos.user.usuarios import Usuario
+from flask import Blueprint, request, render_template, flash
 
-users = {
-    'Gabriel': ["123", "Administrador"],
-    'Vitor': ["123", "Usuário"] ,
-    'Cadu': ["123", "Usuário"],
-    'Phillip': ["123", "Usuário"]
-}
 
-roles= ["Usuário","Administrador"]
-
+login_manager = LoginManager()
 login = Blueprint("login",__name__, template_folder="views")
 
+
+
+@login_manager.user_loader
+def get_user(user_id):
+    return Usuario.query.filter_by(id = user_id).first()
+
+@login.route('/login')  # Defina a rota da página de login
+def logi():
+    # Sua lógica de renderização da página de login aqui
+    return render_template('login.html')
+
 @login.route('/user_validar', methods=['POST'])
-def user_validar():
+def usuario_validar():
     if request.method == 'POST':
-        user = request.form['user']
+        email = request.form['user']
         senha = request.form['senha']
-        if user in users and users[user][0] == senha:
-            return render_template('home.html')
+        user = Usuario.validate_user(email, senha)
+        if(user == None):
+            flash('usuário e/ou senha incorreta!')
+            return render_template('login.html')
         else:
-            status = 1
-            return render_template('login.html', status=status)
+            print(user)
+            flask_login.login_user(user)
+            return render_template('home.html', role = flask_login.current_user.papel_id)
     else:
-        status = 0
-        return render_template('login.html', status=status)
+        return render_template('login.html')
 
-@login.route('/user_listar')
-def user_listar():
-    global users
-    return render_template("user_listar.html", users=users, status=0)
-
-@login.route('/user_cadastrar')
-def user_cadastar():
-    return render_template("user_cadastrar.html")
-
-@login.route('/user_adicionar', methods=['GET','POST'])
-def user_adicionar():
-    global users
-    if request.method == 'POST':
-        user = request.form['user']
-        senha = request.form['senha']
-    else:
-        user = request.args.get('user', None)
-        senha = request.args.get('senha', None)
-        adm = request.form.get('role', None)
-    users[user] = [senha, "Usuário"]
-    return render_template("user_listar.html", users=users)
-
-@login.route('/user_deletar')
-def user_deletar():
-    global users
-    user = request.args.get('user', None)
-    if users[user][1]=="Administrador":
-        return render_template("user_listar.html", users=users, status=1)
-    users.pop(user)
-    return render_template("user_listar.html", users=users)
-
-@login.route('/user_alterar')
-def user_alterar():
-    global users
-    global roles
-    user = request.args.get('user', None)
-    return render_template("user_alterar.html", user=user)
-
-@login.route('/user_atualizar', methods=['GET','POST'])
-def user_atualizar():
-    id = request.form.get("id")
-    user = request.form.get("user")
-    senha = request.form.get("senha")
-    if user in users:
-        users[user][0] = senha
-    else:
-        adm = users[id][1]
-        users.pop(id)
-        users[user] = [senha, adm]
-    return render_template("user_listar.html", users = users)
+@login.route('/logoff')
+@flask_login.login_required
+def logoff():
+    logout_user()
+    return render_template("login.html")

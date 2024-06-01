@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %} <title>Sensores</title> {% endblock %}
 {% block content %}
 <h1>Sensores</h1>
 <link rel="stylesheet" href="static/CSS/styles.css">
@@ -36,5 +35,10 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+</table>
+{% if role==1 %}
+<div style="text-align: center">
+    <a href="/sensor_cadastrar"><button class="button button--shadow">Adicionar Sensor</button></a>
+</div>
+{% endif %}
 {% endblock %}

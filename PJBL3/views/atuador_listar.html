@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %} <title>Atuadores</title> {% endblock %}
 {% block content %}
 <h1>Atuadores</h1>
 <link rel="stylesheet" href="static/CSS/styles.css">
@@ -35,4 +34,9 @@
             {% endfor %}
         </tbody>
 </table>
+{% if role==1 %}
+<div style="text-align: center">
+    <a href="/atuador_cadastrar"><button class="button button--shadow">Adicionar Atuador</button></a>
+</div>
+{% endif %}
 {% endblock %}

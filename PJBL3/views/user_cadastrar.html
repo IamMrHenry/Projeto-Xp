@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %} <title>Adicionar Usuário</title> {% endblock %}
 {%block content%}
 <link rel="stylesheet" href="static/CSS/cadastrar_atuador.css" /> 
 <body>
@@ -8,8 +7,16 @@
             <h2>Cadastrar Usuários</h2>
             <form action = "http://localhost:8080/user_adicionar" method = "post">
                 <div class="input-box">
-                    <p><input type = "text" name = "user" placeholder="Nome" required/></p>
+                    <p><input type = "text" name = "usuario" placeholder="Nome" required/></p>
                 </div>
+                <div class="input-box">
+                    <p><input type = "text" name = "email" placeholder="email" required/></p>
+                </div>
+                <select name="papel">
+                    {% for papel in papel %}
+                    <option type = "text" name = "id" value= "{{papel.nome}}">{{ papel.nome }}</option>
+                    {% endfor %}
+                </select>
                 <div class="input-box">
                     <p><input type = "text" name = "senha" placeholder="Senha" required/></p>
                 </div>
